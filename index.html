@@ -1,0 +1,833 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, viewport-fit=cover">
+    <title>🎂 Feliz Cumpleaños, Mamá | Ascenso Familiar</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        /* ----- ESTILOS GLOBALES (fusión elegante) ----- */
+        body {
+            font-family: 'Segoe UI', 'Quicksand', system-ui, sans-serif;
+            min-height: 100vh;
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            position: relative;
+            transition: background-image 0.3s ease;
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.45);
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        /* Fondos por página */
+        body.pagina-principal {
+            background-image: url('https://images.pexels.com/photos/1024967/pexels-photo-1024967.jpeg?auto=compress&cs=tinysrgb&w=1600');
+        }
+        body.pagina-collage {
+            background-image: url('https://images.pexels.com/photos/685530/pexels-photo-685530.jpeg?auto=compress&cs=tinysrgb&w=1600');
+        }
+        body.pagina-juego {
+            background-image: url('https://images.pexels.com/photos/1190297/pexels-photo-1190297.jpeg?auto=compress&cs=tinysrgb&w=1600');
+        }
+
+        /* Contenedores de páginas */
+        .pagina {
+            position: relative;
+            z-index: 2;
+            width: 100%;
+            max-width: 1100px;
+            display: none;
+            animation: fadeIn 0.4s ease;
+        }
+
+        .pagina.activa {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(12px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Tarjeta principal (glassmorfismo) */
+        .tarjeta {
+            background: rgba(255, 255, 255, 0.92);
+            backdrop-filter: blur(12px);
+            border-radius: 48px;
+            padding: 28px 24px;
+            box-shadow: 0 25px 45px rgba(0, 0, 0, 0.2);
+            max-height: 88vh;
+            overflow-y: auto;
+        }
+
+        .tarjeta-transparente {
+            background: rgba(255, 245, 235, 0.92);
+            backdrop-filter: blur(12px);
+        }
+
+        .titulo-seccion {
+            font-size: 2rem;
+            font-weight: 800;
+            text-align: center;
+            color: #c4450c;
+            margin-bottom: 16px;
+            font-family: 'Quicksand', sans-serif;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.05);
+        }
+
+        .mensaje-carta {
+            font-size: 1rem;
+            line-height: 1.7;
+            text-align: left;
+            color: #3b2a1f;
+            background: rgba(255,250,240,0.7);
+            padding: 22px;
+            border-radius: 32px;
+            margin: 20px 0;
+            white-space: pre-wrap;
+            font-weight: 500;
+        }
+
+        /* Botones principales */
+        .botones-doble {
+            display: flex;
+            gap: 25px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin: 30px 0 20px;
+        }
+
+        .btn-primario {
+            background: linear-gradient(135deg, #ff9a5a, #ff6f3c);
+            border: none;
+            padding: 14px 32px;
+            border-radius: 60px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: white;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            box-shadow: 0 8px 18px rgba(0,0,0,0.1);
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .btn-primario:hover {
+            transform: scale(1.02);
+            background: linear-gradient(135deg, #ff8533, #ff5e1a);
+        }
+
+        .boton-volver {
+            background: #b0a790;
+            margin-top: 20px;
+            color: white;
+            border: none;
+            padding: 10px 28px;
+            border-radius: 40px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.2s;
+            font-size: 1rem;
+        }
+
+        .boton-volver:hover {
+            background: #8e7a64;
+        }
+
+        /* Collage grid */
+        .collage-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+            gap: 20px;
+            margin: 25px 0;
+        }
+
+        .recuerdo {
+            background: rgba(255,240,215,0.95);
+            border-radius: 28px;
+            overflow: hidden;
+            box-shadow: 0 12px 20px rgba(0,0,0,0.1);
+            transition: all 0.2s;
+            text-align: center;
+        }
+
+        .recuerdo:hover {
+            transform: translateY(-6px);
+        }
+
+        .recuerdo img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .recuerdo p {
+            padding: 12px;
+            font-weight: 600;
+            color: #7a3e1a;
+        }
+
+        /* ---------- Estilos exclusivos para el JUEGO (ascenso vertical) ---------- */
+        .juego-wrapper {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        .game-container {
+            position: relative;
+            border-radius: 32px;
+            box-shadow: 0 20px 35px rgba(0,0,0,0.4);
+            margin: 15px 0;
+        }
+
+        canvas#gameCanvas {
+            display: block;
+            width: 100%;
+            height: auto;
+            background: linear-gradient(145deg, #1a2a3a, #0e1a24);
+            border-radius: 28px;
+            cursor: pointer;
+            touch-action: none;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+        }
+
+        .game-info {
+            position: absolute;
+            top: 16px;
+            left: 0;
+            right: 0;
+            text-align: center;
+            pointer-events: none;
+            z-index: 10;
+            font-weight: bold;
+        }
+
+        .score-board {
+            display: inline-block;
+            background: rgba(0,0,0,0.65);
+            backdrop-filter: blur(4px);
+            padding: 6px 20px;
+            border-radius: 60px;
+            color: #f9e45b;
+            font-size: 1.5rem;
+            font-weight: 800;
+            font-family: monospace;
+            letter-spacing: 1px;
+        }
+
+        .controls-hint-juego {
+            position: absolute;
+            bottom: 12px;
+            left: 0;
+            right: 0;
+            text-align: center;
+            font-size: 0.7rem;
+            color: rgba(255,255,220,0.85);
+            background: rgba(0,0,0,0.45);
+            width: fit-content;
+            margin: 0 auto;
+            padding: 4px 14px;
+            border-radius: 30px;
+            pointer-events: none;
+            backdrop-filter: blur(4px);
+            font-weight: 500;
+        }
+
+        .btn-reinicio-juego {
+            background: #ffaa66;
+            border: none;
+            padding: 6px 20px;
+            border-radius: 40px;
+            font-weight: bold;
+            color: #4a2a10;
+            margin-left: 15px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: 0.2s;
+        }
+
+        .btn-reinicio-juego:hover {
+            background: #ff9244;
+            transform: scale(0.97);
+        }
+
+        @media (max-width: 600px) {
+            .tarjeta { padding: 20px 16px; }
+            .titulo-seccion { font-size: 1.6rem; }
+            .btn-primario { padding: 10px 18px; font-size: 1rem; }
+            .score-board { font-size: 1.2rem; padding: 3px 16px; }
+            .game-info { top: 8px; }
+        }
+        .emoji-footer {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 1.3rem;
+        }
+        .btn-group {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+    </style>
+</head>
+<body class="pagina-principal">
+
+    <!-- ================= PÁGINA PRINCIPAL: CARTA DE CUMPLEAÑOS ================= -->
+    <div id="paginaPrincipal" class="pagina activa">
+        <div class="tarjeta">
+            <div class="titulo-seccion">🎈 ¡Feliz Cumpleaños, Mamá! 🎂</div>
+            <div class="mensaje-carta" id="textoAnimadoCumple"></div>
+            <div class="botones-doble">
+                <button class="btn-primario" onclick="mostrarCollage()">📸 Álbum de Recuerdos</button>
+                <button class="btn-primario" onclick="mostrarJuego()">🎮 Ascenso Familiar 🚀</button>
+            </div>
+            <div class="emoji-footer">🌸✨ Te queremos hasta el infinito ✨🌸</div>
+        </div>
+    </div>
+
+    <!-- ================= PÁGINA COLLAGE: FOTOS Y RECUERDOS ================= -->
+    <div id="paginaCollage" class="pagina">
+        <div class="tarjeta tarjeta-transparente">
+            <div class="titulo-seccion">💖 Nuestros recuerdos en familia 💖</div>
+            <div class="collage-grid" id="collageDinamico"></div>
+            <div class="btn-group">
+                <button class="boton-volver" onclick="volverInicio()">← Volver al inicio</button>
+            </div>
+            <footer style="text-align:center; margin-top:16px; font-size:0.75rem;">📸 Cada foto cuenta una historia de amor y gratitud</footer>
+        </div>
+    </div>
+
+    <!-- ================= PÁGINA JUEGO: ASCENSO VERTICAL (DOODLE STYLE) ================= -->
+    <div id="paginaJuego" class="pagina">
+        <div class="tarjeta tarjeta-transparente" style="background: rgba(250,245,235,0.95); padding: 20px 18px;">
+            <div class="titulo-seccion">🎈 Ascenso Familiar 🎈</div>
+            <div class="juego-wrapper">
+                <div class="game-container">
+                    <canvas id="gameCanvas" width="400" height="600"></canvas>
+                    <div class="game-info">
+                        <div class="score-board" id="scoreDisplay">0 m</div>
+                    </div>
+                    <div class="controls-hint-juego">
+                        ◀ IZQ &nbsp;&nbsp;|&nbsp;&nbsp; ▲ SALTO (centro) &nbsp;&nbsp;|&nbsp;&nbsp; DER ▶
+                    </div>
+                </div>
+                <div style="display: flex; gap: 12px; justify-content: center; margin-top: 16px;">
+                    <button class="boton-volver" onclick="volverInicio()">🏠 Volver al inicio</button>
+                    <button id="reinicioJuegoExterno" class="btn-reinicio-juego">🔄 Reiniciar juego</button>
+                </div>
+                <p style="font-size: 0.8rem; text-align: center; margin-top: 12px; color: #b45a2b;">✨ Sube lo más alto que puedas, esquiva los obstáculos ✨</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ------------------------- CARTA ANIMADA (CUMPLEAÑOS MAMÁ) -------------------------
+        const mensajeMama = `Querida Mamá 💐,
+
+Hoy el mundo se viste de fiesta porque es tu día especial. 
+Quiero que sepas que cada latido de mi corazón celebra tenerte a mi lado.
+
+Gracias por cada desvelo, por cada abrazo sincero, por cada sonrisa que ilumina nuestros días. 
+Eres el pilar de esta familia, la luz que guía nuestros pasos y el refugio donde siempre hay amor.
+
+Recuerdo cada tarde compartida, cada comida hecha con cariño, cada consejo que llevo siempre conmigo. 
+Este collage de fotos que verás son fragmentos de nuestra historia; sonrisas, viajes, cumpleaños y abrazos que atesoramos.
+
+Hoy quiero regalarte un juego muy especial: "Ascenso Familiar". Ayuda al personaje a subir esquivando bloques. ¡Cada metro de altura es un abrazo hacia el cielo!
+
+Gracias por ser la mejor mamá del mundo. Te deseo un año lleno de salud, alegría y momentos inolvidables. 
+¡Te amamos con todo el corazón! 🎂✨
+
+Con todo mi cariño,
+Tu familia. 💖`;
+
+        let indexLetra = 0;
+        const elementoTexto = document.getElementById("textoAnimadoCumple");
+        let animacionActiva = true;
+
+        function escribirCarta() {
+            if (indexLetra < mensajeMama.length && animacionActiva) {
+                elementoTexto.innerHTML += mensajeMama.charAt(indexLetra);
+                indexLetra++;
+                setTimeout(escribirCarta, 22);
+                const contenedor = document.querySelector('.mensaje-carta');
+                if (contenedor) contenedor.scrollTop = contenedor.scrollHeight;
+            } else {
+                animacionActiva = false;
+            }
+        }
+        escribirCarta();
+
+        // ---------- NAVEGACIÓN ENTRE PÁGINAS ----------
+        function mostrarPagina(pageId, bodyClass) {
+            document.getElementById('paginaPrincipal').classList.remove('activa');
+            document.getElementById('paginaCollage').classList.remove('activa');
+            document.getElementById('paginaJuego').classList.remove('activa');
+            document.getElementById(pageId).classList.add('activa');
+            document.body.className = bodyClass;
+
+            // Si se va a la página principal y la carta no terminó, reanudamos
+            if (pageId === 'paginaPrincipal' && indexLetra < mensajeMama.length && !animacionActiva) {
+                animacionActiva = true;
+                escribirCarta();
+            }
+
+            // Manejo especial del juego: iniciar/detener según corresponda
+            if (pageId === 'paginaJuego') {
+                iniciarJuegoCompleto();
+            } else {
+                detenerJuegoGlobal();   // detener loops si se sale de la página de juego
+            }
+        }
+
+        function mostrarCollage() {
+            mostrarPagina('paginaCollage', 'pagina-collage');
+            if (document.getElementById('collageDinamico').children.length === 0) {
+                cargarCollageFotos();
+            }
+        }
+
+        function mostrarJuego() {
+            mostrarPagina('paginaJuego', 'pagina-juego');
+        }
+
+        function volverInicio() {
+            detenerJuegoGlobal();
+            mostrarPagina('paginaPrincipal', 'pagina-principal');
+        }
+
+        // ---------- COLLAGE DE FOTOS FAMILIARES ----------
+        const recuerdosFamiliares = [
+            { src: "https://images.pexels.com/photos/3768146/pexels-photo-3768146.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop", desc: "Mamá y su sonrisa eterna ☀️" },
+            { src: "https://images.pexels.com/photos/3768116/pexels-photo-3768116.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop", desc: "Abrazos que curan el alma 🤗" },
+            { src: "https://images.pexels.com/photos/4101555/pexels-photo-4101555.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop", desc: "Pastel de cumpleaños familiar 🎂" },
+            { src: "https://images.pexels.com/photos/3184405/pexels-photo-3184405.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop", desc: "Tardes de juegos y risas 🃏" },
+            { src: "https://images.pexels.com/photos/414016/pexels-photo-414016.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop", desc: "Paseos juntos 🌻" },
+            { src: "https://images.pexels.com/photos/2253879/pexels-photo-2253879.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop", desc: "Navidad en familia 🎄" },
+            { src: "https://images.pexels.com/photos/3812755/pexels-photo-3812755.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop", desc: "El mejor equipo del mundo ❤️" },
+            { src: "https://images.pexels.com/photos/5427618/pexels-photo-5427618.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop", desc: "Recuerdos de la infancia 🧸" }
+        ];
+        
+        function cargarCollageFotos() {
+            const grid = document.getElementById('collageDinamico');
+            grid.innerHTML = '';
+            recuerdosFamiliares.forEach(foto => {
+                const card = document.createElement('div');
+                card.className = 'recuerdo';
+                const img = document.createElement('img');
+                img.src = foto.src;
+                img.alt = foto.desc;
+                img.loading = "lazy";
+                const caption = document.createElement('p');
+                caption.textContent = foto.desc;
+                card.appendChild(img);
+                card.appendChild(caption);
+                grid.appendChild(card);
+            });
+            // extra tierno
+            const extra = document.createElement('div');
+            extra.className = 'recuerdo';
+            extra.innerHTML = `<img src="https://images.pexels.com/photos/3662882/pexels-photo-3662882.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop" alt="Celebrando juntos"><p>✨ Momentos que brillan ✨</p>`;
+            grid.appendChild(extra);
+        }
+
+        // ---------- JUEGO: ASCENSO VERTICAL (Doodle Jump inspirado) ----------
+        let canvas, ctx;
+        let gameActive = false;          // si el juego está corriendo (loops activos)
+        let animationIdGame = null;
+        let spawnIntervalGame = null;
+        
+        // Parámetros del juego
+        const CANVAS_W = 400;
+        const CANVAS_H = 600;
+        const PLAYER_RADIUS = 15;
+        let playerWorldX = CANVAS_W/2;
+        let playerWorldY = CANVAS_H - 80;
+        let playerVy = 0;
+        const GRAVITY = 0.26;
+        const JUMP_POWER = -6.3;
+        const HORIZ_SPEED = 3.2;
+        
+        // Controles táctiles/presión
+        let leftPressed = false;
+        let rightPressed = false;
+        
+        // Obstáculos
+        let obstacles = [];
+        const OBSTACLE_MIN_W = 18;
+        const OBSTACLE_MAX_W = 42;
+        const OBSTACLE_H = 18;
+        let spawnCounter = 0;
+        const SPAWN_RATE_FRAMES = 40;
+        
+        // Cámara / mundo
+        let worldY = 0;           // desplazamiento cámara (qué parte del mundo se ve arriba)
+        let score = 0;
+        let gameOverFlag = false;
+        
+        // Elementos DOM del juego
+        let scoreSpan = null;
+        
+        // Funciones auxiliares
+        function randomColorBlock() {
+            const cols = ['#FF5252', '#FFB74D', '#66BB6A', '#42A5F5', '#AB47BC', '#FFA270', '#7E57FF', '#EC407A', '#26C6DA'];
+            return cols[Math.floor(Math.random() * cols.length)];
+        }
+        
+        function spawnObstacle() {
+            let w = Math.floor(Math.random() * (OBSTACLE_MAX_W - OBSTACLE_MIN_W + 1) + OBSTACLE_MIN_W);
+            let x = Math.random() * (CANVAS_W - w);
+            let yWorld = worldY - 28;   // aparece justo encima de la cámara
+            obstacles.push({
+                x: x, y: yWorld, w: w, h: OBSTACLE_H,
+                color: randomColorBlock()
+            });
+        }
+        
+        function collideCircleRect(cx, cy, r, rect) {
+            let closestX = Math.max(rect.x, Math.min(cx, rect.x + rect.w));
+            let closestY = Math.max(rect.y, Math.min(cy, rect.y + rect.h));
+            let dx = cx - closestX;
+            let dy = cy - closestY;
+            return (dx * dx + dy * dy) < r * r;
+        }
+        
+        function actualizarJuego() {
+            if (!gameActive || gameOverFlag) return;
+            
+            // Movimiento horizontal
+            if (leftPressed) playerWorldX -= HORIZ_SPEED;
+            if (rightPressed) playerWorldX += HORIZ_SPEED;
+            if (playerWorldX - PLAYER_RADIUS < 0) playerWorldX = PLAYER_RADIUS;
+            if (playerWorldX + PLAYER_RADIUS > CANVAS_W) playerWorldX = CANVAS_W - PLAYER_RADIUS;
+            
+            // Gravedad
+            playerWorldY += playerVy;
+            playerVy += GRAVITY;
+            
+            // Detectar caída (game over)
+            let screenY = playerWorldY - worldY;
+            if (screenY + PLAYER_RADIUS > CANVAS_H + 70) {
+                gameOverFlag = true;
+                return;
+            }
+            
+            // Colisiones con obstáculos
+            for (let i = 0; i < obstacles.length; i++) {
+                if (collideCircleRect(playerWorldX, playerWorldY, PLAYER_RADIUS, obstacles[i])) {
+                    gameOverFlag = true;
+                    return;
+                }
+            }
+            
+            // Eliminar obstáculos muy abajo
+            obstacles = obstacles.filter(obs => (obs.y + obs.h) > worldY - 100);
+            
+            // Spawn de obstáculos
+            if (spawnCounter <= 0) {
+                spawnObstacle();
+                spawnCounter = SPAWN_RATE_FRAMES;
+                if (Math.random() < 0.2) spawnObstacle(); // doble a veces
+            } else {
+                spawnCounter--;
+            }
+            
+            // Actualizar cámara (sigue al jugador, suavizado)
+            let targetWorldY = playerWorldY - CANVAS_H * 0.45;
+            worldY = worldY * 0.92 + targetWorldY * 0.08;
+            if (worldY < 0) worldY = 0;
+            
+            // Puntuación: metros ascendidos
+            let currentHeight = Math.floor(playerWorldY * 0.75);
+            if (currentHeight > score) {
+                score = currentHeight;
+                if (scoreSpan) scoreSpan.innerText = score + " m";
+            }
+        }
+        
+        function jump() {
+            if (!gameActive) return;
+            if (gameOverFlag) return;
+            playerVy = JUMP_POWER;
+        }
+        
+        function dibujarJuego() {
+            if (!ctx) return;
+            ctx.clearRect(0, 0, CANVAS_W, CANVAS_H);
+            
+            // Fondo dinámico según altura
+            let hue = (score * 0.2) % 360;
+            let grad = ctx.createLinearGradient(0, 0, 0, CANVAS_H);
+            grad.addColorStop(0, `hsl(${hue}, 65%, 58%)`);
+            grad.addColorStop(1, `hsl(${hue + 25}, 70%, 28%)`);
+            ctx.fillStyle = grad;
+            ctx.fillRect(0, 0, CANVAS_W, CANVAS_H);
+            
+            // Estrellitas decorativas
+            ctx.fillStyle = "rgba(255,245,200,0.7)";
+            for (let i = 0; i < 70; i++) {
+                let starX = (i * 177) % CANVAS_W;
+                let starY = (worldY * 0.3 + i * 93) % CANVAS_H;
+                ctx.beginPath();
+                ctx.arc(starX, starY, 1.2, 0, Math.PI*2);
+                ctx.fill();
+            }
+            
+            // Dibujar obstáculos
+            for (let obs of obstacles) {
+                let screenY = obs.y - worldY;
+                if (screenY + obs.h > 0 && screenY < CANVAS_H) {
+                    ctx.fillStyle = obs.color;
+                    ctx.beginPath();
+                    ctx.roundRect(obs.x, screenY, obs.w, obs.h, 8);
+                    ctx.fill();
+                    ctx.strokeStyle = "#FFF2BB";
+                    ctx.lineWidth = 1.5;
+                    ctx.stroke();
+                }
+            }
+            
+            // Personaje (un corazón ascendente con brillo)
+            let playerScreenX = playerWorldX;
+            let playerScreenY = playerWorldY - worldY;
+            ctx.save();
+            ctx.shadowBlur = 10;
+            ctx.shadowColor = "rgba(0,0,0,0.3)";
+            // degradado suave
+            let gradPlayer = ctx.createRadialGradient(playerScreenX-4, playerScreenY-4, 5, playerScreenX, playerScreenY, PLAYER_RADIUS);
+            gradPlayer.addColorStop(0, "#FFB347");
+            gradPlayer.addColorStop(1, "#FF7043");
+            ctx.fillStyle = gradPlayer;
+            ctx.beginPath();
+            ctx.arc(playerScreenX, playerScreenY, PLAYER_RADIUS, 0, Math.PI*2);
+            ctx.fill();
+            ctx.fillStyle = "#442200";
+            ctx.beginPath();
+            ctx.arc(playerScreenX - 5, playerScreenY - 4, 2.8, 0, Math.PI*2);
+            ctx.arc(playerScreenX + 5, playerScreenY - 4, 2.8, 0, Math.PI*2);
+            ctx.fill();
+            ctx.fillStyle = "white";
+            ctx.beginPath();
+            ctx.arc(playerScreenX - 6, playerScreenY - 5, 1, 0, Math.PI*2);
+            ctx.arc(playerScreenX + 4, playerScreenY - 5, 1, 0, Math.PI*2);
+            ctx.fill();
+            // sonrisa
+            ctx.beginPath();
+            ctx.arc(playerScreenX, playerScreenY + 3, 6, 0.05, Math.PI - 0.05);
+            ctx.strokeStyle = "#5D3A1A";
+            ctx.lineWidth = 1.8;
+            ctx.stroke();
+            ctx.restore();
+            
+            // Mensaje Game Over
+            if (gameOverFlag) {
+                ctx.font = "bold 26px 'Segoe UI'";
+                ctx.fillStyle = "#FFF3CF";
+                ctx.shadowBlur = 0;
+                ctx.fillText("💖 GAME OVER", CANVAS_W/2 - 105, CANVAS_H/2 - 40);
+                ctx.font = "15px monospace";
+                ctx.fillStyle = "#FFD966";
+                ctx.fillText("Toca en cualquier lugar para reiniciar", CANVAS_W/2 - 130, CANVAS_H/2 + 30);
+            }
+        }
+        
+        function loopJuego() {
+            if (!gameActive) return;
+            actualizarJuego();
+            dibujarJuego();
+            animationIdGame = requestAnimationFrame(loopJuego);
+        }
+        
+        function generarSpawnLoop() {
+            if (spawnIntervalGame) clearInterval(spawnIntervalGame);
+            spawnIntervalGame = setInterval(() => {
+                if (gameActive && !gameOverFlag && obstacles.length < 24) {
+                    if (Math.random() < 0.55) spawnObstacle();
+                }
+            }, 1100);
+        }
+        
+        function reiniciarJuegoCompleto() {
+            if (!gameActive) return;
+            gameOverFlag = false;
+            score = 0;
+            if (scoreSpan) scoreSpan.innerText = "0 m";
+            playerWorldX = CANVAS_W/2;
+            playerWorldY = CANVAS_H - 80;
+            playerVy = 0;
+            worldY = 0;
+            obstacles = [];
+            leftPressed = false;
+            rightPressed = false;
+            spawnCounter = 5;
+            // limpiar obstáculos y reiniciar
+        }
+        
+        // Control de eventos táctiles y ratón (zonas izquierda, centro salto, derecha)
+        let touchHandlerActive = false;
+        function onCanvasStart(e, isTouch) {
+            if (!gameActive) return;
+            e.preventDefault();
+            const rect = canvas.getBoundingClientRect();
+            const scaleX = CANVAS_W / rect.width;
+            let clientX;
+            if (isTouch && e.touches) clientX = e.touches[0].clientX;
+            else clientX = e.clientX;
+            let canvasX = (clientX - rect.left) * scaleX;
+            if (canvasX < 0) canvasX = 0;
+            if (canvasX > CANVAS_W) canvasX = CANVAS_W;
+            
+            if (gameOverFlag) {
+                reiniciarJuegoCompleto();
+                return;
+            }
+            // Zonas: izquierda, centro salto, derecha
+            if (canvasX < CANVAS_W / 3) {
+                leftPressed = true;
+                rightPressed = false;
+            } else if (canvasX > 2 * CANVAS_W / 3) {
+                rightPressed = true;
+                leftPressed = false;
+            } else {
+                jump();
+            }
+        }
+        
+        function onCanvasEnd(e, isTouch) {
+            if (!gameActive) return;
+            if (isTouch) e.preventDefault();
+            leftPressed = false;
+            rightPressed = false;
+        }
+        
+        function onMouseUpGlobal() {
+            if (!gameActive) return;
+            leftPressed = false;
+            rightPressed = false;
+        }
+        
+        function iniciarJuegoCompleto() {
+            if (gameActive) {
+                // ya está activo, solo aseguramos que esté en estado limpio si estaba game over
+                if (gameOverFlag) reiniciarJuegoCompleto();
+                return;
+            }
+            // Detener previo si hay residuos
+            if (animationIdGame) cancelAnimationFrame(animationIdGame);
+            if (spawnIntervalGame) clearInterval(spawnIntervalGame);
+            
+            canvas = document.getElementById("gameCanvas");
+            if (!canvas) return;
+            ctx = canvas.getContext("2d");
+            canvas.width = CANVAS_W;
+            canvas.height = CANVAS_H;
+            scoreSpan = document.getElementById("scoreDisplay");
+            
+            gameActive = true;
+            gameOverFlag = false;
+            score = 0;
+            if (scoreSpan) scoreSpan.innerText = "0 m";
+            playerWorldX = CANVAS_W/2;
+            playerWorldY = CANVAS_H - 80;
+            playerVy = 0;
+            worldY = 0;
+            obstacles = [];
+            leftPressed = false;
+            rightPressed = false;
+            spawnCounter = 5;
+            for(let i=0;i<3;i++) spawnObstacle(); // obstáculos iniciales
+            
+            // eventos
+            canvas.removeEventListener('touchstart', touchStartHandler);
+            canvas.removeEventListener('touchend', touchEndHandler);
+            canvas.removeEventListener('mousedown', mouseDownHandler);
+            window.removeEventListener('mouseup', onMouseUpGlobal);
+            canvas.addEventListener('touchstart', touchStartHandler, {passive: false});
+            canvas.addEventListener('touchend', touchEndHandler);
+            canvas.addEventListener('mousedown', mouseDownHandler);
+            window.addEventListener('mouseup', onMouseUpGlobal);
+            canvas.addEventListener('contextmenu', (e) => e.preventDefault());
+            
+            generarSpawnLoop();
+            loopJuego();
+        }
+        
+        function detenerJuegoGlobal() {
+            if (animationIdGame) {
+                cancelAnimationFrame(animationIdGame);
+                animationIdGame = null;
+            }
+            if (spawnIntervalGame) {
+                clearInterval(spawnIntervalGame);
+                spawnIntervalGame = null;
+            }
+            gameActive = false;
+            if (canvas) {
+                canvas.removeEventListener('touchstart', touchStartHandler);
+                canvas.removeEventListener('touchend', touchEndHandler);
+                canvas.removeEventListener('mousedown', mouseDownHandler);
+            }
+            window.removeEventListener('mouseup', onMouseUpGlobal);
+        }
+        
+        // handlers
+        function touchStartHandler(e) { onCanvasStart(e, true); }
+        function touchEndHandler(e) { onCanvasEnd(e, true); }
+        function mouseDownHandler(e) { onCanvasStart(e, false); }
+        
+        // Agregar botón externo reinicio
+        window.addEventListener('load', () => {
+            cargarCollageFotos();
+            const reinicioBtn = document.getElementById("reinicioJuegoExterno");
+            if (reinicioBtn) {
+                reinicioBtn.addEventListener("click", () => {
+                    if (gameActive) reiniciarJuegoCompleto();
+                });
+            }
+        });
+        
+        // Helper roundRect
+        if (!CanvasRenderingContext2D.prototype.roundRect) {
+            CanvasRenderingContext2D.prototype.roundRect = function(x, y, w, h, r) {
+                if (w < 2 * r) r = w / 2;
+                if (h < 2 * r) r = h / 2;
+                this.moveTo(x+r, y);
+                this.lineTo(x+w-r, y);
+                this.quadraticCurveTo(x+w, y, x+w, y+r);
+                this.lineTo(x+w, y+h-r);
+                this.quadraticCurveTo(x+w, y+h, x+w-r, y+h);
+                this.lineTo(x+r, y+h);
+                this.quadraticCurveTo(x, y+h, x, y+h-r);
+                this.lineTo(x, y+r);
+                this.quadraticCurveTo(x, y, x+r, y);
+                return this;
+            };
+        }
+    </script>
+</body>
+</html>
