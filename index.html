@@ -5,303 +5,47 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, viewport-fit=cover">
     <title>💌 Feliz Cumple, Ma | Ascenso Familiar</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            -webkit-tap-highlight-color: transparent;
-        }
-
-        body {
-            font-family: 'Segoe UI', 'Quicksand', system-ui, sans-serif;
-            min-height: 100vh;
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
-            position: relative;
-            transition: background-image 0.3s ease;
-        }
-
-        body::before {
-            content: "";
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.45);
-            z-index: 0;
-            pointer-events: none;
-        }
-
-        body.pagina-principal {
-            background-image: url('https://images.pexels.com/photos/1024967/pexels-photo-1024967.jpeg?auto=compress&cs=tinysrgb&w=1600');
-        }
-        body.pagina-collage {
-            background-image: url('https://images.pexels.com/photos/685530/pexels-photo-685530.jpeg?auto=compress&cs=tinysrgb&w=1600');
-        }
-        body.pagina-juego {
-            background-image: url('https://images.pexels.com/photos/1190297/pexels-photo-1190297.jpeg?auto=compress&cs=tinysrgb&w=1600');
-        }
-
-        .pagina {
-            position: relative;
-            z-index: 2;
-            width: 100%;
-            max-width: 1100px;
-            display: none;
-            animation: fadeIn 0.4s ease;
-        }
-
-        .pagina.activa {
-            display: block;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(12px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .tarjeta {
-            background: rgba(255, 255, 255, 0.92);
-            backdrop-filter: blur(12px);
-            border-radius: 48px;
-            padding: 28px 24px;
-            box-shadow: 0 25px 45px rgba(0, 0, 0, 0.2);
-            max-height: 88vh;
-            overflow-y: auto;
-        }
-
-        .tarjeta-transparente {
-            background: rgba(255, 245, 235, 0.92);
-            backdrop-filter: blur(12px);
-        }
-
-        .titulo-seccion {
-            font-size: 2rem;
-            font-weight: 800;
-            text-align: center;
-            color: #c4450c;
-            margin-bottom: 16px;
-            font-family: 'Quicksand', sans-serif;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.05);
-        }
-
-        .mensaje-carta {
-            font-size: 1rem;
-            line-height: 1.7;
-            text-align: left;
-            color: #3b2a1f;
-            background: rgba(255,250,240,0.7);
-            padding: 22px;
-            border-radius: 32px;
-            margin: 20px 0;
-            white-space: pre-wrap;
-            font-weight: 500;
-        }
-
-        .botones-doble {
-            display: flex;
-            gap: 25px;
-            justify-content: center;
-            flex-wrap: wrap;
-            margin: 30px 0 20px;
-        }
-
-        .btn-primario {
-            background: linear-gradient(135deg, #ff9a5a, #ff6f3c);
-            border: none;
-            padding: 14px 32px;
-            border-radius: 60px;
-            font-size: 1.2rem;
-            font-weight: bold;
-            color: white;
-            cursor: pointer;
-            transition: transform 0.2s, box-shadow 0.2s;
-            box-shadow: 0 8px 18px rgba(0,0,0,0.1);
-            display: inline-flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .btn-primario:hover {
-            transform: scale(1.02);
-            background: linear-gradient(135deg, #ff8533, #ff5e1a);
-        }
-
-        .boton-volver {
-            background: #b0a790;
-            margin-top: 20px;
-            color: white;
-            border: none;
-            padding: 10px 28px;
-            border-radius: 40px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: 0.2s;
-            font-size: 1rem;
-        }
-
-        .boton-volver:hover {
-            background: #8e7a64;
-        }
-
-        .collage-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
-            gap: 20px;
-            margin: 25px 0;
-        }
-
-        .recuerdo {
-            background: rgba(255,240,215,0.95);
-            border-radius: 28px;
-            overflow: hidden;
-            box-shadow: 0 12px 20px rgba(0,0,0,0.1);
-            transition: all 0.2s;
-            text-align: center;
-        }
-
-        .recuerdo:hover {
-            transform: translateY(-6px);
-        }
-
-        .recuerdo img {
-            width: 100%;
-            height: 180px;
-            object-fit: cover;
-            display: block;
-        }
-
-        .recuerdo p {
-            padding: 12px;
-            font-weight: 600;
-            color: #7a3e1a;
-        }
-
-        .juego-wrapper {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
-        }
-
-        .game-container {
-            position: relative;
-            border-radius: 32px;
-            box-shadow: 0 20px 35px rgba(0,0,0,0.4);
-            margin: 15px 0;
-        }
-
-        canvas#gameCanvas {
-            display: block;
-            width: 100%;
-            height: auto;
-            background: linear-gradient(145deg, #1a2a3a, #0e1a24);
-            border-radius: 28px;
-            cursor: pointer;
-            touch-action: none;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
-        }
-
-        .game-info {
-            position: absolute;
-            top: 16px;
-            left: 0;
-            right: 0;
-            text-align: center;
-            pointer-events: none;
-            z-index: 10;
-            font-weight: bold;
-        }
-
-        .score-board {
-            display: inline-block;
-            background: rgba(0,0,0,0.65);
-            backdrop-filter: blur(4px);
-            padding: 6px 20px;
-            border-radius: 60px;
-            color: #f9e45b;
-            font-size: 1.5rem;
-            font-weight: 800;
-            font-family: monospace;
-            letter-spacing: 1px;
-        }
-
-        .controls-hint-juego {
-            position: absolute;
-            bottom: 12px;
-            left: 0;
-            right: 0;
-            text-align: center;
-            font-size: 0.7rem;
-            color: rgba(255,255,220,0.85);
-            background: rgba(0,0,0,0.45);
-            width: fit-content;
-            margin: 0 auto;
-            padding: 4px 14px;
-            border-radius: 30px;
-            pointer-events: none;
-            backdrop-filter: blur(4px);
-            font-weight: 500;
-        }
-
-        .btn-reinicio-juego {
-            background: #ffaa66;
-            border: none;
-            padding: 6px 20px;
-            border-radius: 40px;
-            font-weight: bold;
-            color: #4a2a10;
-            margin-left: 15px;
-            cursor: pointer;
-            font-size: 0.9rem;
-            transition: 0.2s;
-        }
-
-        .btn-reinicio-juego:hover {
-            background: #ff9244;
-            transform: scale(0.97);
-        }
-
-        @media (max-width: 600px) {
-            .tarjeta { padding: 20px 16px; }
-            .titulo-seccion { font-size: 1.6rem; }
-            .btn-primario { padding: 10px 18px; font-size: 1rem; }
-            .score-board { font-size: 1.2rem; padding: 3px 16px; }
-            .game-info { top: 8px; }
-        }
-        .emoji-footer {
-            text-align: center;
-            margin-top: 20px;
-            font-size: 1.3rem;
-        }
-        .btn-group {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            flex-wrap: wrap;
-        }
-        .img-placeholder {
-            background: #e9e0d3;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            height: 180px;
-            color: #a0815c;
-            font-size: 2rem;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        body { font-family: 'Segoe UI', 'Quicksand', system-ui, sans-serif; min-height: 100vh; background-size: cover; background-position: center; background-attachment: fixed; display: flex; align-items: center; justify-content: center; padding: 20px; position: relative; transition: background-image 0.3s ease; }
+        body::before { content: ""; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.45); z-index: 0; pointer-events: none; }
+        body.pagina-principal { background-image: url('https://images.pexels.com/photos/1024967/pexels-photo-1024967.jpeg?auto=compress&cs=tinysrgb&w=1600'); }
+        body.pagina-collage { background-image: url('https://images.pexels.com/photos/685530/pexels-photo-685530.jpeg?auto=compress&cs=tinysrgb&w=1600'); }
+        body.pagina-juego { background-image: url('https://images.pexels.com/photos/1190297/pexels-photo-1190297.jpeg?auto=compress&cs=tinysrgb&w=1600'); }
+        .pagina { position: relative; z-index: 2; width: 100%; max-width: 1100px; display: none; animation: fadeIn 0.4s ease; }
+        .pagina.activa { display: block; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+        .tarjeta { background: rgba(255, 255, 255, 0.92); backdrop-filter: blur(12px); border-radius: 48px; padding: 28px 24px; box-shadow: 0 25px 45px rgba(0, 0, 0, 0.2); max-height: 88vh; overflow-y: auto; }
+        .tarjeta-transparente { background: rgba(255, 245, 235, 0.92); backdrop-filter: blur(12px); }
+        .titulo-seccion { font-size: 2rem; font-weight: 800; text-align: center; color: #c4450c; margin-bottom: 16px; font-family: 'Quicksand', sans-serif; text-shadow: 2px 2px 4px rgba(0,0,0,0.05); }
+        .mensaje-carta { font-size: 1rem; line-height: 1.7; text-align: left; color: #3b2a1f; background: rgba(255,250,240,0.7); padding: 22px; border-radius: 32px; margin: 20px 0; white-space: pre-wrap; font-weight: 500; }
+        .botones-doble { display: flex; gap: 25px; justify-content: center; flex-wrap: wrap; margin: 30px 0 20px; }
+        .btn-primario { background: linear-gradient(135deg, #ff9a5a, #ff6f3c); border: none; padding: 14px 32px; border-radius: 60px; font-size: 1.2rem; font-weight: bold; color: white; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s; box-shadow: 0 8px 18px rgba(0,0,0,0.1); display: inline-flex; align-items: center; gap: 12px; }
+        .btn-primario:hover { transform: scale(1.02); background: linear-gradient(135deg, #ff8533, #ff5e1a); }
+        .boton-volver { background: #b0a790; margin-top: 20px; color: white; border: none; padding: 10px 28px; border-radius: 40px; font-weight: bold; cursor: pointer; transition: 0.2s; font-size: 1rem; }
+        .boton-volver:hover { background: #8e7a64; }
+        .collage-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); gap: 20px; margin: 25px 0; }
+        .recuerdo { background: rgba(255,240,215,0.95); border-radius: 28px; overflow: hidden; box-shadow: 0 12px 20px rgba(0,0,0,0.1); transition: all 0.2s; text-align: center; }
+        .recuerdo:hover { transform: translateY(-6px); }
+        .recuerdo img { width: 100%; height: 180px; object-fit: cover; display: block; }
+        .recuerdo p { padding: 12px; font-weight: 600; color: #7a3e1a; }
+        .juego-wrapper { display: flex; justify-content: center; align-items: center; flex-direction: column; }
+        .game-container { position: relative; border-radius: 32px; box-shadow: 0 20px 35px rgba(0,0,0,0.4); margin: 15px 0; }
+        canvas#gameCanvas { display: block; width: 100%; height: auto; background: linear-gradient(145deg, #1a2a3a, #0e1a24); border-radius: 28px; cursor: pointer; touch-action: none; box-shadow: 0 10px 20px rgba(0,0,0,0.3); }
+        .game-info { position: absolute; top: 16px; left: 0; right: 0; text-align: center; pointer-events: none; z-index: 10; font-weight: bold; }
+        .score-board { display: inline-block; background: rgba(0,0,0,0.65); backdrop-filter: blur(4px); padding: 6px 20px; border-radius: 60px; color: #f9e45b; font-size: 1.5rem; font-weight: 800; font-family: monospace; letter-spacing: 1px; }
+        .controls-hint-juego { position: absolute; bottom: 12px; left: 0; right: 0; text-align: center; font-size: 0.7rem; color: rgba(255,255,220,0.85); background: rgba(0,0,0,0.45); width: fit-content; margin: 0 auto; padding: 4px 14px; border-radius: 30px; pointer-events: none; backdrop-filter: blur(4px); font-weight: 500; }
+        .btn-reinicio-juego { background: #ffaa66; border: none; padding: 6px 20px; border-radius: 40px; font-weight: bold; color: #4a2a10; margin-left: 15px; cursor: pointer; font-size: 0.9rem; transition: 0.2s; }
+        .btn-reinicio-juego:hover { background: #ff9244; transform: scale(0.97); }
+        @media (max-width: 600px) { .tarjeta { padding: 20px 16px; } .titulo-seccion { font-size: 1.6rem; } .btn-primario { padding: 10px 18px; font-size: 1rem; } .score-board { font-size: 1.2rem; padding: 3px 16px; } .game-info { top: 8px; } }
+        .emoji-footer { text-align: center; margin-top: 20px; font-size: 1.3rem; }
+        .btn-group { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; }
     </style>
 </head>
 <body class="pagina-principal">
 
     <div id="paginaPrincipal" class="pagina activa">
         <div class="tarjeta">
-            <div class="titulo-seccion">🎈 ¡Feliz Cumpleaños, Ma! </div>
+            <div class="titulo-seccion">🎈 ¡Feliz Cumpleaños, Ma!</div>
             <div class="mensaje-carta" id="textoAnimadoCumple"></div>
             <div class="botones-doble">
                 <button class="btn-primario" onclick="mostrarCollage()">📸 Recuerdos</button>
@@ -318,7 +62,7 @@
             <div class="btn-group">
                 <button class="boton-volver" onclick="volverInicio()">← Volver al inicio</button>
             </div>
-            <footer style="text-align:center; margin-top:16px; font-size:0.75rem;">📸 Cada foto cuenta una memoria</footer>
+            <footer style="text-align:center; margin-top:16px; font-size:0.75rem;">📸 33 recuerdos que atesoramos</footer>
         </div>
     </div>
 
@@ -345,7 +89,6 @@
     </div>
 
     <script>
-        // CARTA ANIMADA
         const mensajeMama = `Querida Mamá 💐,
 
 El mundo viste de gracia porque es tu día especial. 
@@ -381,14 +124,12 @@ Tu familia. 💖`;
         }
         escribirCarta();
 
-        // NAVEGACIÓN
         function mostrarPagina(pageId, bodyClass) {
             document.getElementById('paginaPrincipal').classList.remove('activa');
             document.getElementById('paginaCollage').classList.remove('activa');
             document.getElementById('paginaJuego').classList.remove('activa');
             document.getElementById(pageId).classList.add('activa');
             document.body.className = bodyClass;
-
             if (pageId === 'paginaPrincipal' && indexLetra < mensajeMama.length && !animacionActiva) {
                 animacionActiva = true;
                 escribirCarta();
@@ -401,56 +142,66 @@ Tu familia. 💖`;
             mostrarPagina('paginaCollage', 'pagina-collage');
             if (document.getElementById('collageDinamico').children.length === 0) cargarCollageFotos();
         }
-
         function mostrarJuego() { mostrarPagina('paginaJuego', 'pagina-juego'); }
         function volverInicio() { detenerJuegoGlobal(); mostrarPagina('paginaPrincipal', 'pagina-principal'); }
 
-        // COLLAGE CON LAS 22 FOTOS DE DRIVE
-        const driveIds = [
-            "1ysLunMJ5SOQKMw9hRWY4-HozhJbas7Vc",
-            "1NM-agvn5cOhwzRkUzFIXmHPTiwNtAaIl",
-            "1Ly7dW1kAVgyQjzHSInePLoKSDGIMCmoB",
-            "1nGMAyuj_cZ5z-02d5xUxjU3DRh0OikI4",
-            "1iVf_4tlysRqEzLTvkXgpMRY9-Xf_ZDrd",
-            "1ZEFMMLkWLW4iicqsxtu_urZbJbVtFUhD",
-            "1pEo1HbejyTjBIQj4AkD02-oL7qQv2wmx",
-            "1RTlwr1PVy5ZeAdLNkbJkC2-ZrRBqkMS5",
-            "1gBRCTr29RwpU3xWJi5PhYe_KY0r4COxg",
-            "1ZRRgAoKA2m7qOMAW2YbKCM2CVUEUD0SW",
-            "1e9LggbdLZUaYoIy0AEg8mqeWWZGtDxW9",
-            "1nwImU1bzxqqDEGDY0FT2N3gcOg4VbYQ7",
-            "1K0A93okhVgyAmK3GAS_wavk8Hzl0tBvn",
-            "1mZPnjoOXkAjbvMIW_V9kVFsucqYuqzqF",
-            "170ibIwct9oiaIOEfiwmULDGMwXFHR0pz",
-            "19pNF_nUy-RGvP0GY-8jLESNa6cUWVB6k",
-            "17Ip_NEDbdE5OwlGMtA3z2UYP6oJmgDkT",
-            "1bcP2iC3N6_w5JI_qerYJkW1QkwszQGAs",
-            "12jnc1NFlRuiAwvLu7wx0O8UXz3nVU9Ln",
-            "1gHFsBQJmhyepVFA3oR2h8yOdvYxcfI1C",
-            "1tdy1arvs4tAYzZpryxg-m4emBVuoueK5",
-            "1D-IyducfCgu7ftF9lhvjGrUhw4ibD02n"
+        const nombresFotos = [
+            "20211229_114232.jpg",
+            "20220101_000401.jpg",
+            "20220104_200919.jpg",
+            "20220104_201017.jpg",
+            "20220206_140532.jpg",
+            "20220710_112634.jpg",
+            "20220926_112920.jpg",
+            "20221102_183332.jpg",
+            "20221225_000948.jpg",
+            "20221225_062115.jpg",
+            "20230120_154251.jpg",
+            "20230813_095345.jpg",
+            "IMG_20241224_220434_864.jpg",
+            "IMG_20241224_220809_258.jpg",
+            "IMG_20250105_114638_823.jpg",
+            "Screenshot_20220902-121125_Gallery.jpg",
+            "WhatsApp Image 2026-05-27 at 12.57.02 PM (1).jpeg",
+            "WhatsApp Image 2026-05-27 at 12.57.02 PM.jpeg",
+            "WhatsApp Image 2026-05-27 at 12.57.03 PM.jpeg",
+            "WhatsApp Image 2026-05-27 at 12.57.04 PM.jpeg",
+            "WhatsApp Image 2026-05-27 at 12.57.05 PM (1).jpeg",
+            "WhatsApp Image 2026-05-27 at 12.57.05 PM (2).jpeg",
+            "WhatsApp Image 2026-05-27 at 12.57.05 PM.jpeg",
+            "WhatsApp Image 2026-05-27 at 12.57.06 PM (1).jpeg",
+            "WhatsApp Image 2026-05-27 at 12.57.06 PM (2).jpeg",
+            "WhatsApp Image 2026-05-27 at 12.57.06 PM (3).jpeg",
+            "WhatsApp Image 2026-05-27 at 12.57.06 PM.jpeg",
+            "WhatsApp Image 2026-05-27 at 12.57.07 PM (1).jpeg",
+            "WhatsApp Image 2026-05-27 at 12.57.07 PM (2).jpeg",
+            "WhatsApp Image 2026-05-27 at 12.57.07 PM (3).jpeg",
+            "WhatsApp Image 2026-05-27 at 12.57.07 PM (4).jpeg",
+            "WhatsApp Image 2026-05-27 at 12.57.07 PM.jpeg",
+            "WhatsApp Image 2026-05-27 at 12.57.08 PM.jpeg"
         ];
 
         function cargarCollageFotos() {
             const grid = document.getElementById('collageDinamico');
             grid.innerHTML = '';
-            driveIds.forEach(id => {
+            nombresFotos.forEach(nombre => {
                 const card = document.createElement('div');
                 card.className = 'recuerdo';
                 const img = document.createElement('img');
-                // URL directa para incrustar
-                img.src = `https://drive.google.com/uc?export=view&id=${id}`;
+                img.src = `photos/${nombre}`;
                 img.alt = "💖 Recuerdo especial";
                 img.loading = "lazy";
-                img.referrerPolicy = "no-referrer";
-                img.crossOrigin = "anonymous";
-                // Si la imagen falla, muestra un placeholder
                 img.onerror = function() {
                     this.style.display = 'none';
-                    let placeholder = document.createElement('div');
-                    placeholder.className = 'img-placeholder';
-                    placeholder.innerHTML = '🖼️<br><span style="font-size:0.8rem;">No disponible</span>';
-                    card.insertBefore(placeholder, card.firstChild);
+                    const errorDiv = document.createElement('div');
+                    errorDiv.style.background = '#e9e0d3';
+                    errorDiv.style.height = '180px';
+                    errorDiv.style.display = 'flex';
+                    errorDiv.style.alignItems = 'center';
+                    errorDiv.style.justifyContent = 'center';
+                    errorDiv.style.color = '#a0815c';
+                    errorDiv.innerHTML = '🖼️<br><span style="font-size:0.7rem;">Imagen no encontrada</span>';
+                    card.insertBefore(errorDiv, card.firstChild);
                 };
                 const caption = document.createElement('p');
                 caption.textContent = "💖 Recuerdo especial";
@@ -460,35 +211,135 @@ Tu familia. 💖`;
             });
         }
 
-        // JUEGO (sin cambios, solo para completar)
-        let canvas, ctx, gameActive = false, animationIdGame = null, spawnIntervalGame = null;
+        // ========== JUEGO (código completo) ==========
+        let canvas, ctx;
+        let gameActive = false;
+        let animationIdGame = null;
+        let spawnIntervalGame = null;
         const CANVAS_W = 400, CANVAS_H = 600, PLAYER_RADIUS = 15;
         let playerWorldX = CANVAS_W/2, playerWorldY = CANVAS_H - 80, playerVy = 0;
         const GRAVITY = 0.26, JUMP_POWER = -6.3, HORIZ_SPEED = 3.2;
         let leftPressed = false, rightPressed = false;
-        let obstacles = [], spawnCounter = 0, worldY = 0, score = 0, gameOverFlag = false;
+        let obstacles = [];
+        let spawnCounter = 0;
+        const OBSTACLE_H = 18, OBSTACLE_MIN_W = 18, OBSTACLE_MAX_W = 42, SPAWN_RATE_FRAMES = 40;
+        let worldY = 0, score = 0, gameOverFlag = false;
         let scoreSpan = null;
 
-        function randomColorBlock() { const cols = ['#FF5252','#FFB74D','#66BB6A','#42A5F5','#AB47BC','#FFA270','#7E57FF','#EC407A','#26C6DA']; return cols[Math.floor(Math.random()*cols.length)]; }
-        function spawnObstacle() { let w = Math.floor(Math.random()*(OBSTACLE_MAX_W-OBSTACLE_MIN_W+1)+OBSTACLE_MIN_W); let x = Math.random()*(CANVAS_W-w); obstacles.push({ x, y: worldY-28, w, h: OBSTACLE_H, color: randomColorBlock() }); }
-        function collideCircleRect(cx,cy,r,rect) { let closestX = Math.max(rect.x, Math.min(cx, rect.x+rect.w)); let closestY = Math.max(rect.y, Math.min(cy, rect.y+rect.h)); let dx=cx-closestX, dy=cy-closestY; return (dx*dx+dy*dy)<r*r; }
-        function actualizarJuego() { if(!gameActive||gameOverFlag) return; if(leftPressed) playerWorldX-=HORIZ_SPEED; if(rightPressed) playerWorldX+=HORIZ_SPEED; playerWorldX=Math.min(Math.max(playerWorldX, PLAYER_RADIUS), CANVAS_W-PLAYER_RADIUS); playerWorldY+=playerVy; playerVy+=GRAVITY; let screenY=playerWorldY-worldY; if(screenY+PLAYER_RADIUS>CANVAS_H+70) { gameOverFlag=true; return; } for(let obs of obstacles) if(collideCircleRect(playerWorldX,playerWorldY,PLAYER_RADIUS,obs)) { gameOverFlag=true; return; } obstacles=obstacles.filter(obs=>(obs.y+obs.h)>worldY-100); if(spawnCounter<=0) { spawnObstacle(); spawnCounter=SPAWN_RATE_FRAMES; if(Math.random()<0.2) spawnObstacle(); } else spawnCounter--; let targetWorldY=playerWorldY-CANVAS_H*0.45; worldY=worldY*0.92+targetWorldY*0.08; if(worldY<0) worldY=0; let currentHeight=Math.floor(playerWorldY*0.75); if(currentHeight>score) { score=currentHeight; if(scoreSpan) scoreSpan.innerText=score+" m"; } }
+        function randomColorBlock() {
+            const cols = ['#FF5252','#FFB74D','#66BB6A','#42A5F5','#AB47BC','#FFA270','#7E57FF','#EC407A','#26C6DA'];
+            return cols[Math.floor(Math.random()*cols.length)];
+        }
+        function spawnObstacle() {
+            let w = Math.floor(Math.random()*(OBSTACLE_MAX_W-OBSTACLE_MIN_W+1)+OBSTACLE_MIN_W);
+            let x = Math.random()*(CANVAS_W-w);
+            obstacles.push({ x, y: worldY-28, w, h: OBSTACLE_H, color: randomColorBlock() });
+        }
+        function collideCircleRect(cx,cy,r,rect) {
+            let closestX = Math.max(rect.x, Math.min(cx, rect.x+rect.w));
+            let closestY = Math.max(rect.y, Math.min(cy, rect.y+rect.h));
+            let dx=cx-closestX, dy=cy-closestY;
+            return (dx*dx+dy*dy)<r*r;
+        }
+        function actualizarJuego() {
+            if(!gameActive||gameOverFlag) return;
+            if(leftPressed) playerWorldX-=HORIZ_SPEED;
+            if(rightPressed) playerWorldX+=HORIZ_SPEED;
+            playerWorldX=Math.min(Math.max(playerWorldX, PLAYER_RADIUS), CANVAS_W-PLAYER_RADIUS);
+            playerWorldY+=playerVy;
+            playerVy+=GRAVITY;
+            let screenY=playerWorldY-worldY;
+            if(screenY+PLAYER_RADIUS>CANVAS_H+70) { gameOverFlag=true; return; }
+            for(let obs of obstacles) if(collideCircleRect(playerWorldX,playerWorldY,PLAYER_RADIUS,obs)) { gameOverFlag=true; return; }
+            obstacles=obstacles.filter(obs=>(obs.y+obs.h)>worldY-100);
+            if(spawnCounter<=0) { spawnObstacle(); spawnCounter=SPAWN_RATE_FRAMES; if(Math.random()<0.2) spawnObstacle(); }
+            else spawnCounter--;
+            let targetWorldY=playerWorldY-CANVAS_H*0.45;
+            worldY=worldY*0.92+targetWorldY*0.08;
+            if(worldY<0) worldY=0;
+            let currentHeight=Math.floor(playerWorldY*0.75);
+            if(currentHeight>score) { score=currentHeight; if(scoreSpan) scoreSpan.innerText=score+" m"; }
+        }
         function jump() { if(gameActive && !gameOverFlag) playerVy=JUMP_POWER; }
-        function dibujarJuego() { if(!ctx) return; ctx.clearRect(0,0,CANVAS_W,CANVAS_H); let hue=(score*0.2)%360; let grad=ctx.createLinearGradient(0,0,0,CANVAS_H); grad.addColorStop(0,`hsl(${hue},65%,58%)`); grad.addColorStop(1,`hsl(${hue+25},70%,28%)`); ctx.fillStyle=grad; ctx.fillRect(0,0,CANVAS_W,CANVAS_H); ctx.fillStyle="rgba(255,245,200,0.7)"; for(let i=0;i<70;i++) { let starX=(i*177)%CANVAS_W; let starY=(worldY*0.3+i*93)%CANVAS_H; ctx.beginPath(); ctx.arc(starX,starY,1.2,0,Math.PI*2); ctx.fill(); } for(let obs of obstacles) { let screenY=obs.y-worldY; if(screenY+obs.h>0&&screenY<CANVAS_H) { ctx.fillStyle=obs.color; ctx.beginPath(); ctx.roundRect(obs.x,screenY,obs.w,obs.h,8); ctx.fill(); ctx.strokeStyle="#FFF2BB"; ctx.lineWidth=1.5; ctx.stroke(); } } let playerScreenX=playerWorldX, playerScreenY=playerWorldY-worldY; ctx.save(); ctx.shadowBlur=10; ctx.shadowColor="rgba(0,0,0,0.3)"; let gradPlayer=ctx.createRadialGradient(playerScreenX-4,playerScreenY-4,5,playerScreenX,playerScreenY,PLAYER_RADIUS); gradPlayer.addColorStop(0,"#FFB347"); gradPlayer.addColorStop(1,"#FF7043"); ctx.fillStyle=gradPlayer; ctx.beginPath(); ctx.arc(playerScreenX,playerScreenY,PLAYER_RADIUS,0,Math.PI*2); ctx.fill(); ctx.fillStyle="#442200"; ctx.beginPath(); ctx.arc(playerScreenX-5,playerScreenY-4,2.8,0,Math.PI*2); ctx.arc(playerScreenX+5,playerScreenY-4,2.8,0,Math.PI*2); ctx.fill(); ctx.fillStyle="white"; ctx.beginPath(); ctx.arc(playerScreenX-6,playerScreenY-5,1,0,Math.PI*2); ctx.arc(playerScreenX+4,playerScreenY-5,1,0,Math.PI*2); ctx.fill(); ctx.beginPath(); ctx.arc(playerScreenX,playerScreenY+3,6,0.05,Math.PI-0.05); ctx.strokeStyle="#5D3A1A"; ctx.lineWidth=1.8; ctx.stroke(); ctx.restore(); if(gameOverFlag) { ctx.font="bold 26px 'Segoe UI'"; ctx.fillStyle="#FFF3CF"; ctx.fillText("💖 GAME OVER",CANVAS_W/2-105,CANVAS_H/2-40); ctx.font="15px monospace"; ctx.fillStyle="#FFD966"; ctx.fillText("Toca en cualquier lugar para reiniciar",CANVAS_W/2-130,CANVAS_H/2+30); } }
+        function dibujarJuego() {
+            if(!ctx) return;
+            ctx.clearRect(0,0,CANVAS_W,CANVAS_H);
+            let hue=(score*0.2)%360;
+            let grad=ctx.createLinearGradient(0,0,0,CANVAS_H);
+            grad.addColorStop(0,`hsl(${hue},65%,58%)`);
+            grad.addColorStop(1,`hsl(${hue+25},70%,28%)`);
+            ctx.fillStyle=grad; ctx.fillRect(0,0,CANVAS_W,CANVAS_H);
+            ctx.fillStyle="rgba(255,245,200,0.7)";
+            for(let i=0;i<70;i++) { let starX=(i*177)%CANVAS_W; let starY=(worldY*0.3+i*93)%CANVAS_H; ctx.beginPath(); ctx.arc(starX,starY,1.2,0,Math.PI*2); ctx.fill(); }
+            for(let obs of obstacles) {
+                let screenY=obs.y-worldY;
+                if(screenY+obs.h>0&&screenY<CANVAS_H) {
+                    ctx.fillStyle=obs.color; ctx.beginPath(); ctx.roundRect(obs.x,screenY,obs.w,obs.h,8); ctx.fill();
+                    ctx.strokeStyle="#FFF2BB"; ctx.lineWidth=1.5; ctx.stroke();
+                }
+            }
+            let playerScreenX=playerWorldX, playerScreenY=playerWorldY-worldY;
+            ctx.save(); ctx.shadowBlur=10; ctx.shadowColor="rgba(0,0,0,0.3)";
+            let gradPlayer=ctx.createRadialGradient(playerScreenX-4,playerScreenY-4,5,playerScreenX,playerScreenY,PLAYER_RADIUS);
+            gradPlayer.addColorStop(0,"#FFB347"); gradPlayer.addColorStop(1,"#FF7043");
+            ctx.fillStyle=gradPlayer; ctx.beginPath(); ctx.arc(playerScreenX,playerScreenY,PLAYER_RADIUS,0,Math.PI*2); ctx.fill();
+            ctx.fillStyle="#442200"; ctx.beginPath(); ctx.arc(playerScreenX-5,playerScreenY-4,2.8,0,Math.PI*2); ctx.arc(playerScreenX+5,playerScreenY-4,2.8,0,Math.PI*2); ctx.fill();
+            ctx.fillStyle="white"; ctx.beginPath(); ctx.arc(playerScreenX-6,playerScreenY-5,1,0,Math.PI*2); ctx.arc(playerScreenX+4,playerScreenY-5,1,0,Math.PI*2); ctx.fill();
+            ctx.beginPath(); ctx.arc(playerScreenX,playerScreenY+3,6,0.05,Math.PI-0.05); ctx.strokeStyle="#5D3A1A"; ctx.lineWidth=1.8; ctx.stroke();
+            ctx.restore();
+            if(gameOverFlag) {
+                ctx.font="bold 26px 'Segoe UI'"; ctx.fillStyle="#FFF3CF"; ctx.fillText("💖 GAME OVER",CANVAS_W/2-105,CANVAS_H/2-40);
+                ctx.font="15px monospace"; ctx.fillStyle="#FFD966"; ctx.fillText("Toca en cualquier lugar para reiniciar",CANVAS_W/2-130,CANVAS_H/2+30);
+            }
+        }
         function loopJuego() { if(!gameActive) return; actualizarJuego(); dibujarJuego(); animationIdGame=requestAnimationFrame(loopJuego); }
         function generarSpawnLoop() { if(spawnIntervalGame) clearInterval(spawnIntervalGame); spawnIntervalGame=setInterval(()=>{ if(gameActive&&!gameOverFlag&&obstacles.length<24) if(Math.random()<0.55) spawnObstacle(); },1100); }
         function reiniciarJuegoCompleto() { if(!gameActive) return; gameOverFlag=false; score=0; if(scoreSpan) scoreSpan.innerText="0 m"; playerWorldX=CANVAS_W/2; playerWorldY=CANVAS_H-80; playerVy=0; worldY=0; obstacles=[]; leftPressed=false; rightPressed=false; spawnCounter=5; }
-        const OBSTACLE_H=18, OBSTACLE_MIN_W=18, OBSTACLE_MAX_W=42, SPAWN_RATE_FRAMES=40;
         function onCanvasStart(e,isTouch) { if(!gameActive) return; e.preventDefault(); const rect=canvas.getBoundingClientRect(); const scaleX=CANVAS_W/rect.width; let clientX=isTouch?e.touches[0].clientX:e.clientX; let canvasX=(clientX-rect.left)*scaleX; canvasX=Math.min(Math.max(canvasX,0),CANVAS_W); if(gameOverFlag) { reiniciarJuegoCompleto(); return; } if(canvasX<CANVAS_W/3) { leftPressed=true; rightPressed=false; } else if(canvasX>2*CANVAS_W/3) { rightPressed=true; leftPressed=false; } else jump(); }
         function onCanvasEnd(e,isTouch) { if(!gameActive) return; if(isTouch) e.preventDefault(); leftPressed=false; rightPressed=false; }
         function onMouseUpGlobal() { leftPressed=false; rightPressed=false; }
-        function iniciarJuegoCompleto() { if(gameActive) { if(gameOverFlag) reiniciarJuegoCompleto(); return; } if(animationIdGame) cancelAnimationFrame(animationIdGame); if(spawnIntervalGame) clearInterval(spawnIntervalGame); canvas=document.getElementById("gameCanvas"); if(!canvas) return; ctx=canvas.getContext("2d"); canvas.width=CANVAS_W; canvas.height=CANVAS_H; scoreSpan=document.getElementById("scoreDisplay"); gameActive=true; gameOverFlag=false; score=0; if(scoreSpan) scoreSpan.innerText="0 m"; playerWorldX=CANVAS_W/2; playerWorldY=CANVAS_H-80; playerVy=0; worldY=0; obstacles=[]; leftPressed=false; rightPressed=false; spawnCounter=5; for(let i=0;i<3;i++) spawnObstacle(); canvas.removeEventListener('touchstart', touchStartHandler); canvas.removeEventListener('touchend', touchEndHandler); canvas.removeEventListener('mousedown', mouseDownHandler); window.removeEventListener('mouseup', onMouseUpGlobal); canvas.addEventListener('touchstart', touchStartHandler, {passive:false}); canvas.addEventListener('touchend', touchEndHandler); canvas.addEventListener('mousedown', mouseDownHandler); window.addEventListener('mouseup', onMouseUpGlobal); canvas.addEventListener('contextmenu',(e)=>e.preventDefault()); generarSpawnLoop(); loopJuego(); }
-        function detenerJuegoGlobal() { if(animationIdGame) { cancelAnimationFrame(animationIdGame); animationIdGame=null; } if(spawnIntervalGame) { clearInterval(spawnIntervalGame); spawnIntervalGame=null; } gameActive=false; if(canvas) { canvas.removeEventListener('touchstart', touchStartHandler); canvas.removeEventListener('touchend', touchEndHandler); canvas.removeEventListener('mousedown', mouseDownHandler); } window.removeEventListener('mouseup', onMouseUpGlobal); }
+        function iniciarJuegoCompleto() {
+            if(gameActive) { if(gameOverFlag) reiniciarJuegoCompleto(); return; }
+            if(animationIdGame) cancelAnimationFrame(animationIdGame);
+            if(spawnIntervalGame) clearInterval(spawnIntervalGame);
+            canvas=document.getElementById("gameCanvas"); if(!canvas) return;
+            ctx=canvas.getContext("2d"); canvas.width=CANVAS_W; canvas.height=CANVAS_H;
+            scoreSpan=document.getElementById("scoreDisplay");
+            gameActive=true; gameOverFlag=false; score=0; if(scoreSpan) scoreSpan.innerText="0 m";
+            playerWorldX=CANVAS_W/2; playerWorldY=CANVAS_H-80; playerVy=0; worldY=0; obstacles=[]; leftPressed=false; rightPressed=false; spawnCounter=5;
+            for(let i=0;i<3;i++) spawnObstacle();
+            canvas.removeEventListener('touchstart', touchStartHandler); canvas.removeEventListener('touchend', touchEndHandler);
+            canvas.removeEventListener('mousedown', mouseDownHandler); window.removeEventListener('mouseup', onMouseUpGlobal);
+            canvas.addEventListener('touchstart', touchStartHandler, {passive:false}); canvas.addEventListener('touchend', touchEndHandler);
+            canvas.addEventListener('mousedown', mouseDownHandler); window.addEventListener('mouseup', onMouseUpGlobal);
+            canvas.addEventListener('contextmenu',(e)=>e.preventDefault());
+            generarSpawnLoop(); loopJuego();
+        }
+        function detenerJuegoGlobal() {
+            if(animationIdGame) { cancelAnimationFrame(animationIdGame); animationIdGame=null; }
+            if(spawnIntervalGame) { clearInterval(spawnIntervalGame); spawnIntervalGame=null; }
+            gameActive=false;
+            if(canvas) { canvas.removeEventListener('touchstart', touchStartHandler); canvas.removeEventListener('touchend', touchEndHandler); canvas.removeEventListener('mousedown', mouseDownHandler); }
+            window.removeEventListener('mouseup', onMouseUpGlobal);
+        }
         function touchStartHandler(e) { onCanvasStart(e,true); }
         function touchEndHandler(e) { onCanvasEnd(e,true); }
         function mouseDownHandler(e) { onCanvasStart(e,false); }
-        window.addEventListener('load',()=>{ cargarCollageFotos(); const reinicioBtn=document.getElementById("reinicioJuegoExterno"); if(reinicioBtn) reinicioBtn.addEventListener("click",()=>{ if(gameActive) reiniciarJuegoCompleto(); }); });
-        if (!CanvasRenderingContext2D.prototype.roundRect) { CanvasRenderingContext2D.prototype.roundRect = function(x,y,w,h,r) { if(w<2*r) r=w/2; if(h<2*r) r=h/2; this.moveTo(x+r,y); this.lineTo(x+w-r,y); this.quadraticCurveTo(x+w,y,x+w,y+r); this.lineTo(x+w,y+h-r); this.quadraticCurveTo(x+w,y+h,x+w-r,y+h); this.lineTo(x+r,y+h); this.quadraticCurveTo(x,y+h,x,y+h-r); this.lineTo(x,y+r); this.quadraticCurveTo(x,y,x+r,y); return this; }; }
+        window.addEventListener('load',()=>{
+            cargarCollageFotos();
+            const reinicioBtn=document.getElementById("reinicioJuegoExterno");
+            if(reinicioBtn) reinicioBtn.addEventListener("click",()=>{ if(gameActive) reiniciarJuegoCompleto(); });
+        });
+        if (!CanvasRenderingContext2D.prototype.roundRect) {
+            CanvasRenderingContext2D.prototype.roundRect = function(x,y,w,h,r) {
+                if(w<2*r) r=w/2; if(h<2*r) r=h/2;
+                this.moveTo(x+r,y); this.lineTo(x+w-r,y); this.quadraticCurveTo(x+w,y,x+w,y+r);
+                this.lineTo(x+w,y+h-r); this.quadraticCurveTo(x+w,y+h,x+w-r,y+h);
+                this.lineTo(x+r,y+h); this.quadraticCurveTo(x,y+h,x,y+h-r);
+                this.lineTo(x,y+r); this.quadraticCurveTo(x,y,x+r,y);
+                return this;
+            };
+        }
     </script>
 </body>
 </html>
